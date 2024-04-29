@@ -1,6 +1,7 @@
 import random
 import string
 import sys
+import argparse
 
 def get_random_string(length):
     # choose from all lowercase letter
@@ -9,8 +10,15 @@ def get_random_string(length):
     return result_str
 
 def main():
-    pass_length = int(sys.argv[1]) if len(sys.argv) >=2 else 8
-    print(f"Random string of length {pass_length} is {get_random_string(pass_length)}")
+    parser = argparse.ArgumentParser(description="Generate a random password of specified length")
+    parser.add_argument("length", type=int, help="Length of the password")
+    args = parser.parse_args()
+    if args.length <= 0 or type(args.length) != int:
+            print("Error: Length must be a positive integer")
+            return
+
+    password = generate_password(args.length)
+    print("Generated Password:", password)
 
 if __name__ == "__main__":
     main()
